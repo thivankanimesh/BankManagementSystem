@@ -138,7 +138,7 @@ class Account{
                     cin.clear();
                     cin.ignore();
                     if(age==NULL){
-                        cout << "Please enter number value." << endl;
+                        cout << "Please enter integer value." << endl;
                         age=NULL;
                     }else if(age<=0||age>=120){
                         cout << "Age need to be between 0 - 120" << endl;
@@ -150,10 +150,10 @@ class Account{
                     cout << "Enter Address :";
                     getline(cin,address,'\n');
 
-                    bool contains_non_alpha = address.find_first_not_of("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890-/ ") != std::string::npos;
+                    bool contains_non_expected_values = address.find_first_not_of("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890-/ ") != std::string::npos;
 
-                    if(contains_non_alpha==true){
-                        cout << "You cannot use , or any other symbols but you can use dash(-) and slash(/)" << endl;
+                    if(contains_non_expected_values==true){
+                        cout << "You cannot use ,(comma) or any other symbols but instead of you can use dash(-) and slash(/)" << endl;
                         address.clear();
                     }
 
@@ -179,7 +179,7 @@ class Account{
 
                 if(balance==0||balance<0){
                     cout << "Initial balance cannot be 0 or minu" << endl;
-                    balance==NULL;
+                    balance=NULL;
                 }
 
             }while(balance==NULL);
@@ -214,10 +214,10 @@ class Account{
                 cin.clear();
                 cin.ignore();
 
-                bool contains_non_alpha = search.find_first_not_of("1234567890") != std::string::npos;
+                bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
 
-                if(contains_non_alpha){
-                    cout << "Please enter digis only" << endl;
+                if(contains_non_integer){
+                    cout << "Please enter integers only" << endl;
                     search=" ";
                 }
             }while(search==" ");
@@ -317,9 +317,9 @@ class Account{
                             cin.clear();
                             cin.ignore();
 
-                            bool contains_non_alpha = userInput.find_first_not_of("1234567890") != std::string::npos;
+                            bool contains_non_integer = userInput.find_first_not_of("1234567890") != std::string::npos;
 
-                            if(contains_non_alpha==true){
+                            if(contains_non_integer==true){
                                 cout << "Please enter digits only" << endl;
                                 userInput=" ";
                             }
@@ -332,9 +332,9 @@ class Account{
                             cout << "Enter new address :";
                             getline(cin,userInput,'\n');
                            
-                            bool contains_non_alpha = userInput.find_first_not_of("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890-/ ") != std::string::npos;
+                            bool contains_non_expected_values = userInput.find_first_not_of("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890-/ ") != std::string::npos;
 
-                            if(contains_non_alpha==true){
+                            if(contains_non_expected_values==true){
                                 cout << "You cannot use , or any other symbols but you can use dash(-) and slash(/)" << endl;
                                 userInput.clear();
                             }else{
@@ -354,7 +354,7 @@ class Account{
                         }while(userInput==" ");
                         break;
                     default :
-                        cout << "Wrong input";
+                        cout << "Wrong input"<<endl;
                 }
 
                 system("cls");
@@ -542,9 +542,9 @@ class Account{
                 cin.clear();
                 cin.ignore();
 
-                bool contains_non_alpha = search.find_first_not_of("1234567890") != std::string::npos;
+                bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
 
-                if(contains_non_alpha){
+                if(contains_non_integer){
                     cout << "Please enter digis only" << endl;
                     search=" ";
                 }
@@ -596,7 +596,7 @@ class Account{
                 cin.ignore();
 
                 if(ammount==NULL){
-                    cout << "Please enter digits only" << endl;
+                    cout << "Please enter integers only" << endl;
                 }
 
             }while(ammount==NULL);
@@ -639,9 +639,9 @@ class Account{
                 cin.clear();
                 cin.ignore();
 
-                bool contains_non_alpha = search.find_first_not_of("1234567890") != std::string::npos;
+                bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
 
-                if(contains_non_alpha){
+                if(contains_non_integer){
                     cout << "Please enter digis only" << endl;
                     search=" ";
                 }
@@ -678,7 +678,7 @@ class Account{
                 cin.ignore();
 
                 if(ammount==NULL){
-                    cout << "Please enter digits only" << endl;
+                    cout << "Please enter integers only" << endl;
                 }
 
             }while(ammount==NULL);
@@ -742,10 +742,10 @@ class Account{
                 cin.clear();
                 cin.ignore();
 
-                bool contains_non_alpha = search.find_first_not_of("1234567890") != std::string::npos;
+                bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
 
-                if(contains_non_alpha){
-                    cout << "Please enter digis only" << endl;
+                if(contains_non_integer){
+                    cout << "Please enter integers only" << endl;
                     search=" ";
                 }
             }while(search==" ");
@@ -868,12 +868,12 @@ class System{
                     break;
 
                 case 8:
-                    cout << "Please Double enter to close";
+                    cout << "Please Double enter to close"<<endl;
                     std::cin.get();
                     break;
 
                 default:
-                    cout << "Wrong Operation";
+                    cout << "Wrong Operation"<<endl;
                     break;
                 }
 
