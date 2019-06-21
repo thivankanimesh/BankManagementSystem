@@ -3,6 +3,8 @@
 #include <string>
 #include <sstream>
 #include <ctime>
+#include <stdlib.h>
+#include <cstdio>
 
 using namespace std;
 
@@ -46,9 +48,6 @@ class Log{
                 return str;
 
         }
-
-
-
 };
 
 class AccountHolder{
@@ -68,7 +67,7 @@ class AccountHolder{
             this->age=age;
             this->address=address;
             this->NIC=NIC;
-       } 
+       }
 
         int getAccountNo(){
             return this->accountNo;
@@ -76,7 +75,7 @@ class AccountHolder{
 
         string getFname(){
             return this->fname;
-        }   
+        }
 
         string getLname(){
             return this->lname;
@@ -106,7 +105,7 @@ class Account{
 
                 do{
                     cout << "Enter First Name :";
-                    
+
                     cin >> fname;
                     cin.clear();
                     cin.ignore();
@@ -146,7 +145,7 @@ class Account{
                         age=NULL;
                     }
                 }while(age==NULL);
-                
+
                 do{
                     cout << "Enter Address :";
                     getline(cin,address,'\n');
@@ -185,6 +184,10 @@ class Account{
             oAccountFile << accountNo <<","<<fname<<","<<lname<<","<<age<<","<<address<<","<<NIC<< "," << balance << "," << createdDate <<endl;
             oAccountFile.close();
 
+            // Success message
+            system("cls");
+            cout << "Account creation successful" << endl;
+
             // Making a log
             Log log;
             log.createLog("Success",""+to_string(accountNo)+" account created",LOG_FILE);
@@ -211,7 +214,7 @@ class Account{
                 }
             }while(search==" ");
 
-            
+
             ifstream iAccountsFile1;
             iAccountsFile1.open(ACCOUNT_FILE);
 
@@ -236,7 +239,7 @@ class Account{
                 i++;
             }
 
-
+            system("cls");
             cout << "---------------------Current Details-----------------" << endl << endl;
 
             cout << "Account Number :"<< accountDetails[0] << endl << endl;
@@ -337,6 +340,7 @@ class Account{
                         cout << "Wrong input";
                 }
 
+                system("cls");
                 cout << "---------------------Editted Details-----------------" << endl << endl;
 
                 cout << "Account Number :"<< accountDetails[0] << endl << endl;
@@ -351,7 +355,7 @@ class Account{
                 do{
                      cout << "Do you need to edit more : (y/n) :";
                      cin >> edit;
-            
+
                       if(edit=='y'||edit=='Y'){
                          needToEditAgain=true;
                         }else if(edit=='n'||edit=='N'){
@@ -379,6 +383,9 @@ class Account{
                 }
             }
 
+            newFile.close();
+            iAccountsFile2.close();
+
             // This is the modified line
             line = accountDetails[0]+","+accountDetails[1]+","+accountDetails[2]+","+accountDetails[3]+","+accountDetails[4]+","+accountDetails[5]+","+accountDetails[6]+","+accountDetails[7];
 
@@ -393,6 +400,10 @@ class Account{
 
             // rename file
             rename(TEMP_ACCOUNT_FILE,ACCOUNT_FILE);
+
+            // Success message
+            system("cls");
+            cout << "Account successfully modified" << endl;
 
             // Making a log
             Log log;
@@ -457,11 +468,18 @@ class Account{
                 }
             }
 
+            iAccountsFile2.close();
+            newFile.close();
+
             // remove existing file
             remove(ACCOUNT_FILE);
 
             // rename file
             rename(TEMP_ACCOUNT_FILE,ACCOUNT_FILE);
+
+            // Success message
+            system("cls");
+            cout << "Account successfully deleted" << endl;
 
             // Making a log
             Log log;
@@ -469,12 +487,13 @@ class Account{
 
         }
         void listAllAccounts(){
+            system("cls");
             string line;
             ifstream file;
             string accountDetails[8];
-     
+
             file.open(ACCOUNT_FILE);
-            
+
             while(getline(file,line,'\n')){
                 stringstream ss(line);
                // cout << line << endl;
@@ -580,6 +599,10 @@ class Account{
             oAccountFile << line << endl;
             oAccountFile.close();
 
+            // Success message
+            system("cls");
+            cout << "Your diposite successful" << endl;
+
         }
         void withdraw(){
 
@@ -675,6 +698,11 @@ class Account{
                 oAccountFile.open(ACCOUNT_FILE,ios::app);
                 oAccountFile << line << endl;
                 oAccountFile.close();
+
+                // Success message
+                system("cls");
+                cout << "Your withdrawal successful" << endl;
+
             }else{
                 cout << "Insufficient Balance" << endl;
             }
@@ -682,6 +710,7 @@ class Account{
         }
         void checkBalance(){
 
+            system("cls");
             string accountDetails[8];
             string line;
             string search;
@@ -776,55 +805,47 @@ class System{
         void start(){
 
             while(op!=8){
-                 cout << "1 - Open Account" << endl;
-                cout << "2 - Modify Account" << endl;
+                cout << "1 - Open An Account" << endl;
+                cout << "2 - Modify An Account" << endl;
                 cout << "3 - List All Accounts" << endl;
-                cout << "4 - Close Account" <<endl;
-                cout << "5 - Depostite" <<endl;
+                cout << "4 - Close An Account" <<endl;
+                cout << "5 - Deposit" <<endl;
                 cout << "6 - Withdraw" <<endl;
-                cout << "7 - Check balance" << endl;
+                cout << "7 - Check Balance" << endl;
                 cout << "8 - Exit" << endl;
 
                 cout << "Enter Operation :";
                 cin >> op;
 
-
                 switch (op)
                 {
                 case 1:
                     acc.openAccount();
-                    //start();
                     break;
 
                 case 2:
                     acc.modifyAccount();
-                    //start();
                     break;
 
                 case 3:
                     acc.listAllAccounts();
-                   // start();
                     break;
 
                 case 4:
                     acc.closeAccount();
-                   // start();
                     break;
 
                 case 5:
                     acc.deposite();
-                   // start();
                     break;
 
                 case 6:
                     acc.withdraw();
-                   // start();
-                    break;    
+                    break;
 
                 case 7:
                     acc.checkBalance();
-                   // start();
-                    break;    
+                    break;
 
                 case 8:
                     cout << "Please Double enter to close";
@@ -833,17 +854,12 @@ class System{
 
                 default:
                     cout << "Wrong Operation";
-                  //  start();
                     break;
                 }
 
             }
 
-           
-
         }
-
-
 };
 
 int main(){
