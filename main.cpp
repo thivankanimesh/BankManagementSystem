@@ -113,7 +113,7 @@ class Account{
                     bool contains_non_alpha = fname.find_first_not_of("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM") != std::string::npos;
 
                     if(contains_non_alpha==true){
-                        cout << "Please enter characters only";
+                        cout << "Please enter characters only" << endl;
                         fname=" ";
                     }
                 }while(fname==" ");
@@ -127,7 +127,7 @@ class Account{
                     bool contains_non_alpha = lname.find_first_not_of("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM") != std::string::npos;
 
                     if(contains_non_alpha==true){
-                        cout << "Please enter characters only";
+                        cout << "Please enter characters only" << endl;
                         lname=" ";
                     }
                }while(lname==" ");
@@ -149,6 +149,14 @@ class Account{
                 do{
                     cout << "Enter Address :";
                     getline(cin,address,'\n');
+
+                    bool contains_non_alpha = address.find_first_not_of("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890-/ ") != std::string::npos;
+
+                    if(contains_non_alpha==true){
+                        cout << "You cannot use , or any other symbols but you can use dash(-) and slash(/)" << endl;
+                        address.clear();
+                    }
+
                 }while(address.empty());
 
 
@@ -323,7 +331,16 @@ class Account{
                         do{
                             cout << "Enter new address :";
                             getline(cin,userInput,'\n');
-                            accountDetails[4]=userInput;
+                           
+                            bool contains_non_alpha = userInput.find_first_not_of("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890-/ ") != std::string::npos;
+
+                            if(contains_non_alpha==true){
+                                cout << "You cannot use , or any other symbols but you can use dash(-) and slash(/)" << endl;
+                                userInput.clear();
+                            }else{
+                                 accountDetails[4]=userInput;
+                            }
+
                         }while(userInput.empty());
                         break;
                     case 5:
@@ -494,6 +511,8 @@ class Account{
 
             file.open(ACCOUNT_FILE);
 
+             cout << "Account Num" << "\t\t" << "Name" << "\t\t" << "Age" << "\t\t" << "Address" << "\t\t" << "NIC" << "\t\t" << "Balance" << "\t\t" << "Created Date" << endl << endl;
+
             while(getline(file,line,'\n')){
                 stringstream ss(line);
                // cout << line << endl;
@@ -502,7 +521,8 @@ class Account{
                 while(getline(ss,accountDetails[i],',')){
                       i++;
                 }
-                cout << accountDetails[0] << "\t" << accountDetails[1] << "\t" <<accountDetails[2] << "\t" << accountDetails[3] <<"\t" <<accountDetails[4] << "\t\t\t\t" <<accountDetails[5] << "\t" << accountDetails[6] <<"\t\t\t" << accountDetails[7] << endl;
+               
+                cout << accountDetails[0] << "\t" << accountDetails[1] << " " <<accountDetails[2] << "\t\t" << accountDetails[3] <<"\t\t" <<accountDetails[4] << "\t\t" <<accountDetails[5] << "\t\t" << accountDetails[6] <<"\t\t" << accountDetails[7] << endl;
             }
             file.close();
         }
