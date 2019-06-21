@@ -103,6 +103,8 @@ class Account{
             string address;
             string NIC;
 
+            system("cls");
+
                 do{
                     cout << "Enter First Name :";
 
@@ -192,13 +194,17 @@ class Account{
             oAccountFile << accountNo <<","<<fname<<","<<lname<<","<<age<<","<<address<<","<<NIC<< "," << balance << "," << createdDate <<endl;
             oAccountFile.close();
 
+            // Making a log
+            Log log;
+            log.createLog("Success",""+to_string(accountNo)+" account created",LOG_FILE);
+
             // Success message
             system("cls");
             cout << "Account creation successful" << endl;
 
-            // Making a log
-            Log log;
-            log.createLog("Success",""+to_string(accountNo)+" account created",LOG_FILE);
+            // press button to continue
+            system("pause");
+            system("cls");
 
         };
         void modifyAccount(){
@@ -209,6 +215,7 @@ class Account{
             string temp;
 
             do{
+                system("cls");
                 cout << "Enter Account Number :";
                 cin >> search;
                 cin.clear();
@@ -418,13 +425,17 @@ class Account{
             // rename file
             rename(TEMP_ACCOUNT_FILE,ACCOUNT_FILE);
 
+            // Making a log
+            Log log;
+            log.createLog("Success","Account "+search+" modified",LOG_FILE);
+
             // Success message
             system("cls");
             cout << "Account successfully modified" << endl;
 
-            // Making a log
-            Log log;
-            log.createLog("Success","Account "+search+" modified",LOG_FILE);
+            // press button to continue
+            system("pause");
+            system("cls");
 
         }
         void closeAccount(){
@@ -435,6 +446,7 @@ class Account{
             string temp;
 
             do{
+                system("cls");
                 cout << "Enter Account Number :";
                 cin >> search;
                 cin.clear();
@@ -494,14 +506,17 @@ class Account{
             // rename file
             rename(TEMP_ACCOUNT_FILE,ACCOUNT_FILE);
 
-            // Success message
-            system("cls");
-            cout << "Account successfully deleted" << endl;
-
             // Making a log
             Log log;
             log.createLog("Success","Account "+search+" closed",LOG_FILE);
 
+            // Success message
+            system("cls");
+            cout << "Account successfully deleted" << endl;
+
+            // press button to continue
+            system("pause");
+            system("cls");
         }
         void listAllAccounts(){
             system("cls");
@@ -525,6 +540,9 @@ class Account{
                 cout << accountDetails[0] << "\t" << accountDetails[1] << " " <<accountDetails[2] << "\t\t" << accountDetails[3] <<"\t\t" <<accountDetails[4] << "\t\t" <<accountDetails[5] << "\t\t" << accountDetails[6] <<"\t\t" << accountDetails[7] << endl;
             }
             file.close();
+            // press button to continue
+            system("pause");
+            system("cls");
         }
 
         void deposite(){
@@ -622,6 +640,10 @@ class Account{
             // Success message
             system("cls");
             cout << "Your diposite successful" << endl;
+
+            // press button to continue
+            system("pause");
+            system("cls");
 
         }
         void withdraw(){
@@ -723,8 +745,16 @@ class Account{
                 system("cls");
                 cout << "Your withdrawal successful" << endl;
 
+                // press button to continue
+                system("pause");
+                system("cls");
+
             }else{
+                system("cls");
                 cout << "Insufficient Balance" << endl;
+                // press button to continue
+                system("pause");
+                system("cls");
             }
 
         }
@@ -772,7 +802,11 @@ class Account{
             while(getline(accountDetailsStream,accountDetails[i],',')){
                 i++;
             }
+            system("cls");
             cout << "Account balance : "+accountDetails[6] << endl;
+            // press button to continue
+            system("pause");
+            system("cls");
         }
 
     private :
