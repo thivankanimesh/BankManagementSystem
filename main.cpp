@@ -74,7 +74,6 @@ class Account{
 
                 do{
                     cout << "Enter First Name :";
-
                     cin >> fname;
                     cin.clear();
                     cin.ignore();
@@ -83,9 +82,9 @@ class Account{
 
                     if(contains_non_alpha==true){
                         cout << "Please enter characters only" << endl;
-                        fname=" ";
+                        fname.erase();
                     }
-                }while(fname==" ");
+                }while(fname.empty());
 
                do{
                     cout << "Enter Last Name :";
@@ -97,9 +96,9 @@ class Account{
 
                     if(contains_non_alpha==true){
                         cout << "Please enter characters only" << endl;
-                        lname=" ";
+                        lname.erase();
                     }
-               }while(lname==" ");
+               }while(lname.empty());
 
                 do{
                     cout << "Enter Age :";
@@ -107,7 +106,7 @@ class Account{
                     cin.clear();
                     cin.ignore();
                     if(age==NULL){
-                        cout << "Please enter integer value." << endl;
+                        cout << "Please enter integers only" << endl;
                         age=NULL;
                     }else if(age<=0||age>=120){
                         cout << "Age need to be between 0 - 120" << endl;
@@ -123,11 +122,10 @@ class Account{
 
                     if(contains_non_expected_values==true){
                         cout << "You cannot use ,(comma) or any other symbols but instead of you can use dash(-) and slash(/)" << endl;
-                        address.clear();
+                        address.erase();
                     }
 
                 }while(address.empty());
-
 
                 do{
                     cout << "Enter NIC :";
@@ -135,45 +133,51 @@ class Account{
                     cin.clear();
                     cin.ignore();
 
-                }while(NIC==" ");
+                    bool contains_non_expected_values = NIC.find_first_not_of("1234567890v") != std::string::npos;
 
+                    if(contains_non_expected_values==true){
+                        cout << "Please use 1,2,3,4,5,6,7,8,9,0,v only" << endl;
+                        NIC.erase();
+                    }
 
-             do{
-                 
-                cout << "Enter Initial Deposite :";
-                cin >> this->balance;
-                cin.clear();
-                cin.ignore();
+                }while(NIC.empty());
 
-                if(balance==0||balance<0){
-                    cout << "Initial balance cannot be 0 or minu" << endl;
-                    balance=NULL;
-                }
+                do{
+                    
+                    cout << "Enter Initial Deposite :";
+                    cin >> this->balance;
+                    cin.clear();
+                    cin.ignore();
 
-            }while(balance==NULL);    
+                    if(balance==0||balance<0){
+                        cout << "Initial balance cannot be 0 or minu" << endl;
+                        balance=NULL;
+                    }
 
-            // Generating account number
-            this->accountNo=generateNewAccountNumber();
+                }while(balance==NULL);    
 
-            // Getting current date and timr
-            this->createdDate=getCurrentDate();
+                // Generating account number
+                this->accountNo=generateNewAccountNumber();
 
-            ofstream oAccountFile;
-            oAccountFile.open(ACCOUNT_FILE,ios::app);
-            oAccountFile << accountNo <<","<<fname<<","<<lname<<","<<age<<","<<address<<","<<NIC<< "," << balance << "," << createdDate <<endl;
-            oAccountFile.close();
+                // Getting current date and time
+                this->createdDate=getCurrentDate();
 
-            // Making a log
-            Log log;
-            log.createLog("Success",""+to_string(accountNo)+" account created",LOG_FILE);
+                ofstream oAccountFile;
+                oAccountFile.open(ACCOUNT_FILE,ios::app);
+                oAccountFile << accountNo <<","<<fname<<","<<lname<<","<<age<<","<<address<<","<<NIC<< "," << balance << "," << createdDate <<endl;
+                oAccountFile.close();
 
-            // Success message
-            system("cls");
-            cout << "Account creation successful" << endl;
+                // Making a log
+                Log log;
+                log.createLog("Success",""+to_string(accountNo)+" account created",LOG_FILE);
 
-            // press button to continue
-            system("pause");
-            system("cls");
+                // Success message
+                system("cls");
+                cout << "Account creation successful" << endl;
+
+                // press button to continue
+                system("pause");
+                system("cls");
 
         };
         void modifyAccount(){
