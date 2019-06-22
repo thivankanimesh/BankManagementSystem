@@ -518,7 +518,7 @@ class Account{
                 cout << accountDetails[0] << "\t" << accountDetails[1] << " " <<accountDetails[2] << "\t\t" << accountDetails[3] <<"\t\t" <<accountDetails[4] << "\t\t" <<accountDetails[5] << "\t\t" << accountDetails[6] <<"\t\t" << accountDetails[7] << endl;
             }
             iAccountsFile.close();
-            
+
             // press button to continue
             system("pause");
             system("cls");
@@ -527,7 +527,6 @@ class Account{
         void virtual deposite(){
 
             float ammount;
-
             string accountDetails[8];
             string line;
             string search;
@@ -543,13 +542,13 @@ class Account{
 
                 if(contains_non_integer){
                     cout << "Please enter digis only" << endl;
-                    search=" ";
+                    search.erase();
                 }else if(search.length()<5){
                     cout << "Account number need to be 5 digits long" << endl;
-                    search=" ";
+                    search.erase();
                     system("pause");
                 }
-            }while(search==" ");
+            }while(search.empty());
 
             ifstream iAccountsFile1;
             iAccountsFile1.open(ACCOUNT_FILE);
@@ -568,8 +567,8 @@ class Account{
             iAccountsFile1.close();
 
             // make 'line' as a stream
-            int i=0;
             stringstream accountDetailsStream(line);
+            int i=0;
             while(getline(accountDetailsStream,accountDetails[i],',')){
                 i++;
             }
@@ -582,7 +581,6 @@ class Account{
 
             while (getline(iAccountsFile2,temp,'\n'))
             {
-
                 if(temp!=line){
                      newFile<<temp<<endl;
                 }
@@ -592,8 +590,7 @@ class Account{
             newFile.close();
 
             // get input from user
-
-             do{
+            do{
                 cout << "Enter ammount :";
                 cin >> ammount;
                 cin.clear();
@@ -601,8 +598,8 @@ class Account{
 
                 if(ammount==NULL){
                     cout << "Please enter integers only" << endl;
+                    ammount=NULL;
                 }
-
             }while(ammount==NULL);
 
             // modify the array index [6]
@@ -623,20 +620,17 @@ class Account{
             // rename file
             rename(TEMP_ACCOUNT_FILE,ACCOUNT_FILE);
 
-
             // Success message
             system("cls");
-            cout << "Your diposite successful" << endl;
+            cout << "Your deposite successful" << endl;
 
             // press button to continue
             system("pause");
             system("cls");
-
         }
         void withdraw(){
 
             float ammount;
-
             string accountDetails[8];
             string line;
             string search;
@@ -652,13 +646,12 @@ class Account{
 
                 if(contains_non_integer){
                     cout << "Please enter digis only" << endl;
-                    search=" ";
+                    search.erase();
                 }else if(search.length()<5){
                     cout << "Account number need to be 5 digits long" << endl;
-                    search=" ";
-                    system("pause");
+                    search.erase();
                 }
-            }while(search==" ");
+            }while(search.empty());
 
             ifstream iAccountsFile1;
             iAccountsFile1.open(ACCOUNT_FILE);
@@ -677,8 +670,8 @@ class Account{
             iAccountsFile1.close();
 
             // make 'line' as a stream
-            int i=0;
             stringstream accountDetailsStream(line);
+            int i=0;
             while(getline(accountDetailsStream,accountDetails[i],',')){
                 i++;
             }
@@ -692,10 +685,9 @@ class Account{
 
                 if(ammount==NULL){
                     cout << "Please enter integers only" << endl;
+                    ammount==NULL;
                 }
-
             }while(ammount==NULL);
-
 
             // checking balance
             if(ammount<=std::stof(accountDetails[6])){
@@ -708,7 +700,6 @@ class Account{
 
                 while (getline(iAccountsFile2,temp,'\n'))
                 {
-
                     if(temp!=line){
                         newFile<<temp<<endl;
                     }
@@ -717,7 +708,7 @@ class Account{
                 iAccountsFile2.close();
                 newFile.close();
 
-                 // modify the array index [6]
+                // modify the array index [6]
                 accountDetails[6] = to_string(std::stof(accountDetails[6])-ammount);
 
                 //modified line
@@ -746,6 +737,7 @@ class Account{
             }else{
                 system("cls");
                 cout << "Insufficient Balance" << endl;
+
                 // press button to continue
                 system("pause");
                 system("cls");
