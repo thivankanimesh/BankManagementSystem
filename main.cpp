@@ -198,15 +198,14 @@ class Account{
 
                 if(contains_non_integer){
                     cout << "Please enter integers only" << endl;
-                    search=" ";
+                    search.erase();
                     system("pause");
                 }else if(search.length()<5){
                     cout << "Account number need to be 5 digits long" << endl;
-                    search=" ";
+                    search.erase();
                     system("pause");
                 }
-            }while(search==" ");
-
+            }while(search.empty());
 
             ifstream iAccountsFile1;
             iAccountsFile1.open(ACCOUNT_FILE);
@@ -221,12 +220,11 @@ class Account{
                     break;
                 }
             }
-
             iAccountsFile1.close();
 
             // make 'line' as a stream
-            int i=0;
             stringstream accountDetailsStream(line);
+            int i=0;
             while(accountDetailsStream.good()){
                 getline(accountDetailsStream,accountDetails[i],',');
                 i++;
@@ -243,10 +241,10 @@ class Account{
             cout << "5 - NIC :" << accountDetails[5] << endl << endl;
 
             bool needToEditAgain=true;
-            int op;
-
+            
             while (needToEditAgain)
             {
+                int op;
                 do{
                     cout << "Press number to change :" ;
                     cin >> op;
@@ -259,8 +257,8 @@ class Account{
 
                 string userInput;
                 switch(op){
-                    case 1:
 
+                    case 1:
                         do{
                             cout << "Enter new first name :";
                             cin >> userInput;
@@ -271,14 +269,13 @@ class Account{
 
                             if(contains_non_alpha==true){
                                 cout << "Please enter characters only"<<endl;
-                                userInput=" ";
+                                userInput.erase();
                             }
                             accountDetails[1]=userInput;
-
-                        }while(userInput==" ");
+                        }while(userInput.empty());
                         break;
-                    case 2:
 
+                    case 2:
                         do{
                             cout << "Enter new last name :";
                             cin >> userInput;
@@ -289,13 +286,13 @@ class Account{
 
                              if(contains_non_alpha==true){
                                 cout << "Please enter characters only"<<endl;
-                                userInput=" ";
+                                userInput.erase();
                             }
                             accountDetails[2]=userInput;
-                        }while(userInput==" ");
+                        }while(userInput.empty());
                         break;
-                    case 3:
 
+                    case 3:
                         do{
                             cout << "Enter new age :";
                             cin >> userInput;
@@ -305,14 +302,14 @@ class Account{
                             bool contains_non_integer = userInput.find_first_not_of("1234567890") != std::string::npos;
 
                             if(contains_non_integer==true){
-                                cout << "Please enter digits only" << endl;
-                                userInput=" ";
+                                cout << "Please enter integers only" << endl;
+                                userInput.erase();
                             }
                             accountDetails[3]=userInput;
-                        }while(userInput==" ");
+                        }while(userInput.empty());
                         break;
-                    case 4:
 
+                    case 4:
                         do{
                             cout << "Enter new address :";
                             getline(cin,userInput,'\n');
@@ -320,14 +317,14 @@ class Account{
                             bool contains_non_expected_values = userInput.find_first_not_of("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890-/ ") != std::string::npos;
 
                             if(contains_non_expected_values==true){
-                                cout << "You cannot use , or any other symbols but you can use dash(-) and slash(/)" << endl;
-                                userInput.clear();
+                                cout << "You cannot use (comma), or any other symbols but you can use dash(-) and slash(/)" << endl;
+                                userInput.erase();
                             }else{
                                  accountDetails[4]=userInput;
                             }
-
                         }while(userInput.empty());
                         break;
+
                     case 5:
                         do{
                             cout << "Enter new NIC :";
@@ -336,8 +333,9 @@ class Account{
                             cin.clear();
                             cin.ignore();
                             accountDetails[5]=userInput;
-                        }while(userInput==" ");
+                        }while(userInput.empty());
                         break;
+
                     default :
                         cout << "Wrong input"<<endl;
                 }
@@ -353,7 +351,6 @@ class Account{
                 cout << "5 - NIC :" << accountDetails[5] << endl << endl;
 
                 char edit;
-
                 do{
                      cout << "Do you need to edit more : (y/n) :";
                      cin >> edit;
@@ -372,7 +369,7 @@ class Account{
 
             }
 
-             // Create a new file without that specific line
+            // Create a new file without that specific line
             ofstream newFile;
             ifstream iAccountsFile2;
             iAccountsFile2.open(ACCOUNT_FILE);
@@ -385,9 +382,9 @@ class Account{
                 }
             }
 
-            newFile.close();
             iAccountsFile2.close();
-
+            newFile.close();
+       
             // This is the modified line
             line = accountDetails[0]+","+accountDetails[1]+","+accountDetails[2]+","+accountDetails[3]+","+accountDetails[4]+","+accountDetails[5]+","+accountDetails[6]+","+accountDetails[7];
 
