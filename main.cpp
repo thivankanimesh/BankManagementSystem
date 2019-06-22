@@ -971,8 +971,17 @@ class System{
                 cout << "7 - Check Balance" << endl;
                 cout << "8 - Exit" << endl;
 
+                do{
                 cout << "Enter Operation :";
                 cin >> op;
+                cin.clear();
+                cin.ignore();
+
+                if(op==NULL){
+                    cout << "Please enter integers only" << endl;
+                }
+
+            }while(op==NULL);
 
                 switch (op)
                 {
@@ -999,11 +1008,17 @@ class System{
                         system("cls");
                         cout << "1 - Savings Account" << endl;
                         cout << "2 - Checking Account" << endl << endl;
-                        cout << "Enter account type :";
-                        cin >> option;
-                        system("cls");
-                        cin.clear();
-                        cin.ignore();
+                        do{
+                            cout << "Enter account type :";
+                            cin >> option;
+                            cin.clear();
+                            cin.ignore();
+
+                            if(option==NULL){
+                                cout << "Please enter integers only" << endl;
+                            }
+                        }while(option==NULL);
+
                         switch(option){
                             case 1 :
                                 sAcc.deposite();
@@ -1013,7 +1028,9 @@ class System{
                                 break;
                             default :
                                 option=NULL;
+                                system("cls");
                                 cout << "Wrong input" << endl;    
+                                system("pause");
                                 break;    
                         }
                     }
