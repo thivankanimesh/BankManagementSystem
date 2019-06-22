@@ -430,14 +430,14 @@ class Account{
                 bool contains_non_alpha = search.find_first_not_of("1234567890") != std::string::npos;
 
                 if(contains_non_alpha){
-                    cout << "Please enter digis only" << endl;
-                    search=" ";
+                    cout << "Please enter digits only" << endl;
+                    search.erase();
                 }else if(search.length()<5){
                     cout << "Account number need to be 5 digits long" << endl;
-                    search=" ";
+                    search.erase();
                     system("pause");
                 }
-            }while(search==" ");
+            }while(search.empty());
 
             ifstream iAccountsFile1;
             iAccountsFile1.open(ACCOUNT_FILE);
@@ -470,7 +470,6 @@ class Account{
 
             while (getline(iAccountsFile2,temp,'\n'))
             {
-
                 if(temp!=line){
                      newFile<<temp<<endl;
                 }
@@ -498,19 +497,19 @@ class Account{
             system("cls");
         }
         void listAllAccounts(){
+
             system("cls");
             string line;
-            ifstream file;
+            ifstream iAccountsFile;
             string accountDetails[8];
 
-            file.open(ACCOUNT_FILE);
+            iAccountsFile.open(ACCOUNT_FILE);
 
-             cout << "Account Num" << "\t\t" << "Name" << "\t\t" << "Age" << "\t\t" << "Address" << "\t\t" << "NIC" << "\t\t" << "Balance" << "\t\t" << "Created Date" << endl << endl;
+            cout << "Account Num" << "\t\t" << "Name" << "\t\t" << "Age" << "\t\t" << "Address" << "\t\t" << "NIC" << "\t\t" << "Balance" << "\t\t" << "Created Date" << endl << endl;
 
-            while(getline(file,line,'\n')){
+            while(getline(iAccountsFile,line,'\n')){
+
                 stringstream ss(line);
-               // cout << line << endl;
-
                 int i=0;
                 while(getline(ss,accountDetails[i],',')){
                       i++;
@@ -518,7 +517,8 @@ class Account{
                
                 cout << accountDetails[0] << "\t" << accountDetails[1] << " " <<accountDetails[2] << "\t\t" << accountDetails[3] <<"\t\t" <<accountDetails[4] << "\t\t" <<accountDetails[5] << "\t\t" << accountDetails[6] <<"\t\t" << accountDetails[7] << endl;
             }
-            file.close();
+            iAccountsFile.close();
+            
             // press button to continue
             system("pause");
             system("cls");
