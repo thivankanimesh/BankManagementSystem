@@ -195,6 +195,11 @@ class Account{
                 if(contains_non_integer){
                     cout << "Please enter integers only" << endl;
                     search=" ";
+                    system("pause");
+                }else if(search.length()<5){
+                    cout << "Account number need to be 5 digits long" << endl;
+                    search=" ";
+                    system("pause");
                 }
             }while(search==" ");
 
@@ -426,6 +431,10 @@ class Account{
                 if(contains_non_alpha){
                     cout << "Please enter digis only" << endl;
                     search=" ";
+                }else if(search.length()<5){
+                    cout << "Account number need to be 5 digits long" << endl;
+                    search=" ";
+                    system("pause");
                 }
             }while(search==" ");
 
@@ -534,6 +543,10 @@ class Account{
                 if(contains_non_integer){
                     cout << "Please enter digis only" << endl;
                     search=" ";
+                }else if(search.length()<5){
+                    cout << "Account number need to be 5 digits long" << endl;
+                    search=" ";
+                    system("pause");
                 }
             }while(search==" ");
 
@@ -639,6 +652,10 @@ class Account{
                 if(contains_non_integer){
                     cout << "Please enter digis only" << endl;
                     search=" ";
+                }else if(search.length()<5){
+                    cout << "Account number need to be 5 digits long" << endl;
+                    search=" ";
+                    system("pause");
                 }
             }while(search==" ");
 
@@ -753,6 +770,10 @@ class Account{
                 if(contains_non_integer){
                     cout << "Please enter integers only" << endl;
                     search=" ";
+                }else if(search.length()<5){
+                    cout << "Account number need to be 5 digits long" << endl;
+                    search=" ";
+                    system("pause");
                 }
             }while(search==" ");
 
@@ -852,6 +873,10 @@ class CheckingAccount : public Account{
                 if(contains_non_integer){
                     cout << "Please enter digis only" << endl;
                     search=" ";
+                }else if(search.length()<5){
+                    cout << "Account number need to be 5 digits long" << endl;
+                    search=" ";
+                    system("pause");
                 }
             }while(search==" ");
 
