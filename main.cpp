@@ -762,13 +762,12 @@ class Account{
 
                 if(contains_non_integer){
                     cout << "Please enter integers only" << endl;
-                    search=" ";
+                    search.erase();
                 }else if(search.length()<5){
                     cout << "Account number need to be 5 digits long" << endl;
-                    search=" ";
-                    system("pause");
+                    search.erase();
                 }
-            }while(search==" ");
+            }while(search.empty());
 
             ifstream iAccountsFile1;
             iAccountsFile1.open(ACCOUNT_FILE);
@@ -787,13 +786,14 @@ class Account{
             iAccountsFile1.close();
 
             // make 'line' as a stream
-            int i=0;
             stringstream accountDetailsStream(line);
+            int i=0;
             while(getline(accountDetailsStream,accountDetails[i],',')){
                 i++;
             }
             system("cls");
             cout << "Account balance : "+accountDetails[6] << endl;
+
             // press button to continue
             system("pause");
             system("cls");
@@ -831,10 +831,10 @@ class Account{
             newNum =preNum +1;
             ofile << newNum;
 
-            return newNum;
-
             ifile.close();
             ofile.close();
+
+            return newNum;
         }
 };
 
