@@ -574,6 +574,9 @@ class Account{
                 }
             }
 
+            iAccountsFile2.close();
+            newFile.close();
+
             // get input from user
 
              do{
@@ -591,20 +594,21 @@ class Account{
             // modify the array index [6]
             accountDetails[6] = to_string(std::stof(accountDetails[6])+ammount);
 
+            //modified line
+            line = accountDetails[0]+","+accountDetails[1]+","+accountDetails[2]+","+accountDetails[3]+","+accountDetails[4]+","+accountDetails[5]+","+accountDetails[6]+","+accountDetails[7];
+
+            // append new line to the file
+            ofstream oAccountFile;
+            oAccountFile.open(TEMP_ACCOUNT_FILE,ios::app);
+            oAccountFile << line << endl;
+            oAccountFile.close();
+
             // remove existing file
             remove(ACCOUNT_FILE);
 
             // rename file
             rename(TEMP_ACCOUNT_FILE,ACCOUNT_FILE);
 
-            //modified line
-            line = accountDetails[0]+","+accountDetails[1]+","+accountDetails[2]+","+accountDetails[3]+","+accountDetails[4]+","+accountDetails[5]+","+accountDetails[6]+","+accountDetails[7];
-
-            // append new line to the file
-            ofstream oAccountFile;
-            oAccountFile.open(ACCOUNT_FILE,ios::app);
-            oAccountFile << line << endl;
-            oAccountFile.close();
 
             // Success message
             system("cls");
@@ -692,23 +696,26 @@ class Account{
                     }
                 }
 
+                iAccountsFile2.close();
+                newFile.close();
+
                  // modify the array index [6]
                 accountDetails[6] = to_string(std::stof(accountDetails[6])-ammount);
-
-                // remove existing file
-                remove(ACCOUNT_FILE);
-
-                // rename file
-                rename(TEMP_ACCOUNT_FILE,ACCOUNT_FILE);
 
                 //modified line
                 line = accountDetails[0]+","+accountDetails[1]+","+accountDetails[2]+","+accountDetails[3]+","+accountDetails[4]+","+accountDetails[5]+","+accountDetails[6]+","+accountDetails[7];
 
                 // append new line to the file
                 ofstream oAccountFile;
-                oAccountFile.open(ACCOUNT_FILE,ios::app);
+                oAccountFile.open(TEMP_ACCOUNT_FILE,ios::app);
                 oAccountFile << line << endl;
                 oAccountFile.close();
+
+                // remove existing file
+                remove(ACCOUNT_FILE);
+
+                // rename file
+                rename(TEMP_ACCOUNT_FILE,ACCOUNT_FILE);
 
                 // Success message
                 system("cls");
