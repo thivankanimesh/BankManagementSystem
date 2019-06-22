@@ -52,7 +52,7 @@ class Log{
 
 class Account{
 
-    private :
+    protected :
         int accountNo;
         float balance=0;
         string createdDate;
@@ -514,7 +514,7 @@ class Account{
             system("cls");
         }
 
-        void deposite(){
+        void virtual deposite(){
 
             float ammount;
 
@@ -785,7 +785,7 @@ class Account{
             system("cls");
         }
 
-    private :
+    protected :
         string getCurrentDate(){
 
                 time_t rawtime;
@@ -824,10 +824,137 @@ class Account{
         }
 };
 
+class SavingsAccount : public Account{
+
+};
+
+class CheckingAccount : public Account{
+    private :
+        int checkNo;
+        float ammount;
+
+    public:
+        void deposite() override {
+  
+            string accountDetails[8];
+            string line;
+            string search;
+            string temp;
+
+            do{
+                cout << "Enter Account Number :";
+                cin >> search;
+                cin.clear();
+                cin.ignore();
+
+                bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
+
+                if(contains_non_integer){
+                    cout << "Please enter digis only" << endl;
+                    search=" ";
+                }
+            }while(search==" ");
+
+            ifstream iAccountsFile1;
+            iAccountsFile1.open(ACCOUNT_FILE);
+
+            // search the line upto specific line
+            while(getline(iAccountsFile1,temp,'\n')){
+
+                string::size_type pos=temp.find(search);
+
+                if(pos!=string::npos){
+                    line=temp;
+                    break;
+                }
+            }
+
+            iAccountsFile1.close();
+
+            // make 'line' as a stream
+            int i=0;
+            stringstream accountDetailsStream(line);
+            while(getline(accountDetailsStream,accountDetails[i],',')){
+                i++;
+            }
+
+            // Create a new file and write lines without that specific line
+            ofstream newFile;
+            ifstream iAccountsFile2;
+            iAccountsFile2.open(ACCOUNT_FILE);
+            newFile.open(TEMP_ACCOUNT_FILE,ios::app);
+
+            while (getline(iAccountsFile2,temp,'\n'))
+            {
+
+                if(temp!=line){
+                     newFile<<temp<<endl;
+                }
+            }
+
+            iAccountsFile2.close();
+            newFile.close();
+
+            // get input from user
+
+            do{
+                cout << "Please enter cheque number :" ;
+                cin >> checkNo;
+                cin.clear();
+                cin.ignore();
+
+                if(checkNo==NULL){
+                    cout << "Please enter integers only" << endl;
+                }
+
+            }while(checkNo==NULL);
+
+             do{
+                cout << "Enter cheque ammount :";
+                cin >> ammount;
+                cin.clear();
+                cin.ignore();
+
+                if(ammount==NULL){
+                    cout << "Please enter integers only" << endl;
+                }
+
+            }while(ammount==NULL);
+
+            // modify the array index [6]
+            accountDetails[6] = to_string(std::stof(accountDetails[6])+ammount);
+
+            //modified line
+            line = accountDetails[0]+","+accountDetails[1]+","+accountDetails[2]+","+accountDetails[3]+","+accountDetails[4]+","+accountDetails[5]+","+accountDetails[6]+","+accountDetails[7];
+
+            // append new line to the file
+            ofstream oAccountFile;
+            oAccountFile.open(TEMP_ACCOUNT_FILE,ios::app);
+            oAccountFile << line << endl;
+            oAccountFile.close();
+
+            // remove existing file
+            remove(ACCOUNT_FILE);
+
+            // rename file
+            rename(TEMP_ACCOUNT_FILE,ACCOUNT_FILE);
+
+
+            // Success message
+            system("cls");
+            cout << "Your cheque diposite successful" << endl;
+
+            // press button to continue
+            system("pause");
+            system("cls");
+        }    
+};
+
 class System{
 
     private :
-       Account acc;
+       SavingsAccount sAcc;
+       CheckingAccount cAcc;
        int op;
 
     public :
@@ -850,31 +977,54 @@ class System{
                 switch (op)
                 {
                 case 1:
-                    acc.openAccount();
+                    sAcc.openAccount();
                     break;
 
                 case 2:
-                    acc.modifyAccount();
+                    sAcc.modifyAccount();
                     break;
 
                 case 3:
-                    acc.listAllAccounts();
+                    sAcc.listAllAccounts();
                     break;
 
                 case 4:
-                    acc.closeAccount();
+                    sAcc.closeAccount();
                     break;
 
                 case 5:
-                    acc.deposite();
+                    int option;
+                    option=NULL;
+                    while(option==NULL){
+                        system("cls");
+                        cout << "1 - Savings Account" << endl;
+                        cout << "2 - Checking Account" << endl << endl;
+                        cout << "Enter account type :";
+                        cin >> option;
+                        system("cls");
+                        cin.clear();
+                        cin.ignore();
+                        switch(option){
+                            case 1 :
+                                sAcc.deposite();
+                                break;
+                            case 2 :
+                                cAcc.deposite();
+                                break;
+                            default :
+                                option=NULL;
+                                cout << "Wrong input" << endl;    
+                                break;    
+                        }
+                    }
                     break;
 
                 case 6:
-                    acc.withdraw();
+                    sAcc.withdraw();
                     break;
 
                 case 7:
-                    acc.checkBalance();
+                    sAcc.checkBalance();
                     break;
 
                 case 8:
