@@ -50,39 +50,6 @@ class Log{
         }
 };
 
-class AccountHolder{
-    private :
-        int accountNo;
-        string fname;
-        string lname;
-        int age;
-        string address;
-        string NIC;
-
-    public :
-        AccountHolder(int accountNo,string fname,string lname,int age,string address, string NIC){
-            this->accountNo=accountNo;
-            this->fname=fname;
-            this->lname=lname;
-            this->age=age;
-            this->address=address;
-            this->NIC=NIC;
-       }
-
-        int getAccountNo(){
-            return this->accountNo;
-        }
-
-        string getFname(){
-            return this->fname;
-        }
-
-        string getLname(){
-            return this->lname;
-        }
-
-};
-
 class Account{
 
     private :
@@ -170,10 +137,9 @@ class Account{
 
                 }while(NIC==" ");
 
-            // Generating account number
-            this->accountNo=generateNewAccountNumber();
 
-            do{
+             do{
+                 
                 cout << "Enter Initial Deposite :";
                 cin >> this->balance;
                 cin.clear();
@@ -184,9 +150,12 @@ class Account{
                     balance=NULL;
                 }
 
-            }while(balance==NULL);
+            }while(balance==NULL);    
 
-            AccountHolder accHolder(accountNo,fname,lname,age,address,NIC);
+            // Generating account number
+            this->accountNo=generateNewAccountNumber();
+
+            // Getting current date and timr
             this->createdDate=getCurrentDate();
 
             ofstream oAccountFile;
