@@ -165,7 +165,7 @@ class Account{
 
                 ofstream oAccountFile;
                 oAccountFile.open(ACCOUNT_FILE,ios::app);
-                oAccountFile << accountNo <<","<<fname<<","<<lname<<","<<age<<","<<address<<","<<NIC<< "," << balance << "," << createdDate <<endl;
+                oAccountFile << accountNo <<","<<fname<<","<<lname<<","<<age<<","<<address<<","<<NIC<< "," << (float)balance << "," << createdDate <<endl;
                 oAccountFile.close();
 
                 // Making a log
@@ -336,9 +336,15 @@ class Account{
                         do{
                             cout << "Enter new NIC :";
                             cin >> userInput;
-                            cout << userInput << endl;
                             cin.clear();
                             cin.ignore();
+
+                            bool contains_non_expected_values = userInput.find_first_not_of("1234567890v") != std::string::npos;
+
+                            if(contains_non_expected_values){
+                                cout << "Please use 1,2,3,4,5,6,7,8,9,0,v only" << endl;
+                                userInput.erase();
+                            }
                             accountDetails[5]=userInput;
                         }while(userInput.empty());
                         break;
@@ -852,7 +858,7 @@ class SavingsAccount : public Account{
             }while(ammount==NULL);
 
             // modify the array index [6]
-            accountDetails[6] = to_string(std::stof(accountDetails[6])+ammount);
+            accountDetails[6] = to_string(std::stof(accountDetails[6])+(float)ammount);
 
             //modified line
             line = accountDetails[0]+","+accountDetails[1]+","+accountDetails[2]+","+accountDetails[3]+","+accountDetails[4]+","+accountDetails[5]+","+accountDetails[6]+","+accountDetails[7];
@@ -979,7 +985,7 @@ class CheckingAccount : public Account{
             }while(ammount==NULL);
 
             // modify the array index [6]
-            accountDetails[6] = to_string(std::stof(accountDetails[6])+ammount);
+            accountDetails[6] = to_string(std::stof(accountDetails[6])+(float)ammount);
 
             //modified line
             line = accountDetails[0]+","+accountDetails[1]+","+accountDetails[2]+","+accountDetails[3]+","+accountDetails[4]+","+accountDetails[5]+","+accountDetails[6]+","+accountDetails[7];
