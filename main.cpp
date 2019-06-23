@@ -864,14 +864,14 @@ class CheckingAccount : public Account{
                 bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
 
                 if(contains_non_integer){
-                    cout << "Please enter digis only" << endl;
-                    search=" ";
+                    cout << "Please enter integers only" << endl;
+                    search.erase();
                 }else if(search.length()<5){
                     cout << "Account number need to be 5 digits long" << endl;
-                    search=" ";
+                    search.erase();
                     system("pause");
                 }
-            }while(search==" ");
+            }while(search.empty());
 
             ifstream iAccountsFile1;
             iAccountsFile1.open(ACCOUNT_FILE);
@@ -890,8 +890,8 @@ class CheckingAccount : public Account{
             iAccountsFile1.close();
 
             // make 'line' as a stream
-            int i=0;
             stringstream accountDetailsStream(line);
+            int i=0;
             while(getline(accountDetailsStream,accountDetails[i],',')){
                 i++;
             }
@@ -904,7 +904,6 @@ class CheckingAccount : public Account{
 
             while (getline(iAccountsFile2,temp,'\n'))
             {
-
                 if(temp!=line){
                      newFile<<temp<<endl;
                 }
@@ -914,9 +913,8 @@ class CheckingAccount : public Account{
             newFile.close();
 
             // get input from user
-
             do{
-                cout << "Please enter cheque number :" ;
+                cout << "Enter cheque number :" ;
                 cin >> checkNo;
                 cin.clear();
                 cin.ignore();
@@ -924,10 +922,9 @@ class CheckingAccount : public Account{
                 if(checkNo==NULL){
                     cout << "Please enter integers only" << endl;
                 }
-
             }while(checkNo==NULL);
 
-             do{
+            do{
                 cout << "Enter cheque ammount :";
                 cin >> ammount;
                 cin.clear();
@@ -936,7 +933,6 @@ class CheckingAccount : public Account{
                 if(ammount==NULL){
                     cout << "Please enter integers only" << endl;
                 }
-
             }while(ammount==NULL);
 
             // modify the array index [6]
@@ -957,10 +953,9 @@ class CheckingAccount : public Account{
             // rename file
             rename(TEMP_ACCOUNT_FILE,ACCOUNT_FILE);
 
-
             // Success message
             system("cls");
-            cout << "Your cheque diposite successful" << endl;
+            cout << "Your " <<checkNo<< " cheque deposite successful" << endl;
 
             // press button to continue
             system("pause");
