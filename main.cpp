@@ -71,8 +71,6 @@ class Account{
             string address;
             string NIC;
 
-            system("cls");
-
                 do{
                     cout << "Enter First Name :";
                     cin >> fname;
@@ -201,11 +199,9 @@ class Account{
                     if(contains_non_integer){
                         cout << "Please enter integers only" << endl;
                         search.erase();
-                        system("pause");
                     }else if(search.length()<5){
                         cout << "Account number need to be 5 digits long" << endl;
                         search.erase();
-                        system("pause");
                     }
                 }while(search.empty());
 
@@ -259,13 +255,14 @@ class Account{
                     cin.ignore();
                     if(op<0||op>5||op==NULL){
                         cout << "Wrong Input" << endl;
+                        op=NULL;
                     }
                 }while(op==NULL);
 
                 string userInput;
                 switch(op){
-
                     case 1:
+                        system("cls");
                         do{
                             cout << "Enter new first name :";
                             cin >> userInput;
@@ -283,6 +280,7 @@ class Account{
                         break;
 
                     case 2:
+                        system("cls");
                         do{
                             cout << "Enter new last name :";
                             cin >> userInput;
@@ -300,6 +298,7 @@ class Account{
                         break;
 
                     case 3:
+                        system("cls");
                         do{
                             cout << "Enter new age :";
                             cin >> userInput;
@@ -317,6 +316,7 @@ class Account{
                         break;
 
                     case 4:
+                        system("cls");
                         do{
                             cout << "Enter new address :";
                             getline(cin,userInput,'\n');
@@ -333,6 +333,7 @@ class Account{
                         break;
 
                     case 5:
+                        system("cls");
                         do{
                             cout << "Enter new NIC :";
                             cin >> userInput;
@@ -449,7 +450,6 @@ class Account{
                     }else if(search.length()<5){
                         cout << "Account number need to be 5 digits long" << endl;
                         search.erase();
-                        system("pause");
                     }
                 }while(search.empty());
 
@@ -517,7 +517,6 @@ class Account{
         }
         void listAllAccounts(){
 
-            system("cls");
             string line;
             ifstream iAccountsFile;
             string accountDetails[8];
@@ -670,7 +669,6 @@ class Account{
         }
         void checkBalance(){
 
-            system("cls");
             string accountDetails[8];
             string line;
             string search;
@@ -796,7 +794,6 @@ class SavingsAccount : public Account{
                     }else if(search.length()<5){
                         cout << "Account number need to be 5 digits long" << endl;
                         search.erase();
-                        system("pause");
                     }
                  }while(search.empty());
            
@@ -845,6 +842,7 @@ class SavingsAccount : public Account{
             newFile.close();
 
             // get input from user
+            system("cls");
             do{
                 cout << "Enter ammount :";
                 cin >> ammount;
@@ -914,7 +912,6 @@ class CheckingAccount : public Account{
                     }else if(search.length()<5){
                         cout << "Account number need to be 5 digits long" << endl;
                         search.erase();
-                        system("pause");
                     }
                 }while(search.empty());
 
@@ -962,6 +959,7 @@ class CheckingAccount : public Account{
             newFile.close();
 
             // get input from user
+            system("cls");
             do{
                 cout << "Enter cheque number :" ;
                 cin >> checkNo;
@@ -970,9 +968,13 @@ class CheckingAccount : public Account{
 
                 if(checkNo==NULL){
                     cout << "Please enter integers only" << endl;
+                }else if(checkNo<=0){
+                    cout << "Please enter valid cheque number" << endl;
+                    checkNo=NULL;
                 }
             }while(checkNo==NULL);
 
+            system("cls");
             do{
                 cout << "Enter cheque ammount :";
                 cin >> ammount;
@@ -981,6 +983,9 @@ class CheckingAccount : public Account{
 
                 if(ammount==NULL){
                     cout << "Please enter integers only" << endl;
+                }else if(ammount<=0){
+                    cout << "Ammount cannot be minus(-) or 0" << endl;
+                    ammount=NULL;
                 }
             }while(ammount==NULL);
 
@@ -1048,22 +1053,27 @@ class System{
                 switch (op)
                 {
                 case 1:
+                    system("cls");
                     sAcc.openAccount();
                     break;
 
                 case 2:
+                    system("cls");
                     sAcc.modifyAccount();
                     break;
 
                 case 3:
+                    system("cls");
                     sAcc.listAllAccounts();
                     break;
 
                 case 4:
+                    system("cls");
                     sAcc.closeAccount();
                     break;
 
                 case 5:
+                    system("cls");
                     int option;
                     option=NULL;
                     while(option==NULL){
@@ -1083,14 +1093,15 @@ class System{
 
                         switch(option){
                             case 1 :
+                                system("cls");
                                 sAcc.deposite();
                                 break;
                             case 2 :
+                                system("cls");
                                 cAcc.deposite();
                                 break;
                             default :
                                 option=NULL;
-                                system("cls");
                                 cout << "Wrong input" << endl;    
                                 system("pause");
                                 break;    
@@ -1099,10 +1110,12 @@ class System{
                     break;
 
                 case 6:
+                    system("cls");
                     sAcc.withdraw();
                     break;
 
                 case 7:
+                    system("cls");
                     sAcc.checkBalance();
                     break;
 
@@ -1113,7 +1126,6 @@ class System{
                     break;
 
                 default:
-                    system("cls");
                     cout << "Wrong Operation"<<endl;
                     system("pause");
                     system("cls");
