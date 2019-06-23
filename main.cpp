@@ -1058,12 +1058,16 @@ class System{
                     break;
 
                 case 8:
+                    system("cls");
                     cout << "Please Double enter to close"<<endl;
-                    std::cin.get();
+                    system("pause");
                     break;
 
                 default:
+                    system("cls");
                     cout << "Wrong Operation"<<endl;
+                    system("pause");
+                    system("cls");
                     break;
                 }
 
