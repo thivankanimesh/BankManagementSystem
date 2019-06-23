@@ -1,6 +1,6 @@
 Prerequisites
 
-1) Codesblocks IDE
+1) Codeblocks IDE
 
 HOW TO CONFIGURE CODEBLOCKS
 
