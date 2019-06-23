@@ -5,6 +5,7 @@
 #include <ctime>
 #include <stdlib.h>
 #include <cstdio>
+#include <stdexcept>
 
 using namespace std;
 
@@ -187,40 +188,46 @@ class Account{
             string search;
             string temp;
 
+            bool accountFound = false;
             do{
-                system("cls");
-                cout << "Enter Account Number :";
-                cin >> search;
-                cin.clear();
-                cin.ignore();
+                do{
+                    cout << "Enter Account Number :";
+                    cin >> search;
+                    cin.clear();
+                    cin.ignore();
 
-                bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
+                    bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
 
-                if(contains_non_integer){
-                    cout << "Please enter integers only" << endl;
-                    search.erase();
-                    system("pause");
-                }else if(search.length()<5){
-                    cout << "Account number need to be 5 digits long" << endl;
-                    search.erase();
-                    system("pause");
+                    if(contains_non_integer){
+                        cout << "Please enter integers only" << endl;
+                        search.erase();
+                        system("pause");
+                    }else if(search.length()<5){
+                        cout << "Account number need to be 5 digits long" << endl;
+                        search.erase();
+                        system("pause");
+                    }
+                }while(search.empty());
+
+                ifstream iAccountsFile1;
+                iAccountsFile1.open(ACCOUNT_FILE);
+
+                // search the line upto specific line
+                while(getline(iAccountsFile1,temp,'\n')){
+
+                    string::size_type pos=temp.find(search);
+
+                    if(pos!=string::npos){
+                        line=temp;
+                        accountFound=true;
+                        break;
+                    }
                 }
-            }while(search.empty());
-
-            ifstream iAccountsFile1;
-            iAccountsFile1.open(ACCOUNT_FILE);
-
-            // search the line upto specific line
-            while(getline(iAccountsFile1,temp,'\n')){
-
-                string::size_type pos=temp.find(search);
-
-                if(pos!=string::npos){
-                    line=temp;
-                    break;
+                iAccountsFile1.close();
+                if(accountFound==false){
+                    cout << "Wrong account number" << endl;
                 }
-            }
-            iAccountsFile1.close();
+            }while(accountFound==false);
 
             // make 'line' as a stream
             stringstream accountDetailsStream(line);
@@ -420,40 +427,46 @@ class Account{
             string search;
             string temp;
 
+            bool accountFound=false;
             do{
-                system("cls");
-                cout << "Enter Account Number :";
-                cin >> search;
-                cin.clear();
-                cin.ignore();
+                do{
+                    cout << "Enter Account Number :";
+                    cin >> search;
+                    cin.clear();
+                    cin.ignore();
 
-                bool contains_non_alpha = search.find_first_not_of("1234567890") != std::string::npos;
+                    bool contains_non_alpha = search.find_first_not_of("1234567890") != std::string::npos;
 
-                if(contains_non_alpha){
-                    cout << "Please enter digits only" << endl;
-                    search.erase();
-                }else if(search.length()<5){
-                    cout << "Account number need to be 5 digits long" << endl;
-                    search.erase();
-                    system("pause");
+                    if(contains_non_alpha){
+                        cout << "Please enter digits only" << endl;
+                        search.erase();
+                    }else if(search.length()<5){
+                        cout << "Account number need to be 5 digits long" << endl;
+                        search.erase();
+                        system("pause");
+                    }
+                }while(search.empty());
+
+                ifstream iAccountsFile1;
+                iAccountsFile1.open(ACCOUNT_FILE);
+
+                // search the line upto specific line
+                while(getline(iAccountsFile1,temp,'\n')){
+
+                    string::size_type pos=temp.find(search);
+
+                    if(pos!=string::npos){
+                        line=temp;
+                        accountFound=true;
+                        break;
+                    }
                 }
-            }while(search.empty());
 
-            ifstream iAccountsFile1;
-            iAccountsFile1.open(ACCOUNT_FILE);
-
-            // search the line upto specific line
-            while(getline(iAccountsFile1,temp,'\n')){
-
-                string::size_type pos=temp.find(search);
-
-                if(pos!=string::npos){
-                    line=temp;
-                    break;
+                iAccountsFile1.close();
+                if(accountFound==false){
+                    cout <<"Wrong account number" << endl;
                 }
-            }
-
-            iAccountsFile1.close();
+            }while(accountFound==false);
 
             // make 'line' as a stream
             int i=0;
@@ -533,38 +546,46 @@ class Account{
             string search;
             string temp;
 
-             do{
-                cout << "Enter Account Number :";
-                cin >> search;
-                cin.clear();
-                cin.ignore();
+            bool accountFound = false;
+            do{
+                do{
+                    cout << "Enter Account Number :";
+                    cin >> search;
+                    cin.clear();
+                    cin.ignore();
 
-                bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
+                    bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
 
-                if(contains_non_integer){
-                    cout << "Please enter digis only" << endl;
-                    search.erase();
-                }else if(search.length()<5){
-                    cout << "Account number need to be 5 digits long" << endl;
-                    search.erase();
+                    if(contains_non_integer){
+                        cout << "Please enter digis only" << endl;
+                        search.erase();
+                    }else if(search.length()<5){
+                        cout << "Account number need to be 5 digits long" << endl;
+                        search.erase();
+                    }
+                }while(search.empty());
+
+                ifstream iAccountsFile1;
+                iAccountsFile1.open(ACCOUNT_FILE);
+
+                // search the line upto specific line
+                while(getline(iAccountsFile1,temp,'\n')){
+
+                    string::size_type pos=temp.find(search);
+
+                    if(pos!=string::npos){
+                        line=temp;
+                        accountFound=true;
+                        break;
+                    }
                 }
-            }while(search.empty());
 
-            ifstream iAccountsFile1;
-            iAccountsFile1.open(ACCOUNT_FILE);
+                iAccountsFile1.close();
 
-            // search the line upto specific line
-            while(getline(iAccountsFile1,temp,'\n')){
-
-                string::size_type pos=temp.find(search);
-
-                if(pos!=string::npos){
-                    line=temp;
-                    break;
+                if(accountFound==false){
+                    cout << "Wrong account number" << endl;
                 }
-            }
-
-            iAccountsFile1.close();
+            }while(accountFound==false); 
 
             // make 'line' as a stream
             stringstream accountDetailsStream(line);
@@ -649,38 +670,46 @@ class Account{
             string search;
             string temp;
 
-             do{
-                cout << "Enter Account Number :";
-                cin >> search;
-                cin.clear();
-                cin.ignore();
+            bool accountFound=false;
+            do{
+                do{
+                    cout << "Enter Account Number :";
+                    cin >> search;
+                    cin.clear();
+                    cin.ignore();
 
-                bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
+                    bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
 
-                if(contains_non_integer){
-                    cout << "Please enter integers only" << endl;
-                    search.erase();
-                }else if(search.length()<5){
-                    cout << "Account number need to be 5 digits long" << endl;
-                    search.erase();
+                    if(contains_non_integer){
+                        cout << "Please enter integers only" << endl;
+                        search.erase();
+                    }else if(search.length()<5){
+                        cout << "Account number need to be 5 digits long" << endl;
+                        search.erase();
+                    }
+                }while(search.empty());
+
+                ifstream iAccountsFile1;
+                iAccountsFile1.open(ACCOUNT_FILE);
+
+                // search the line upto specific line
+                while(getline(iAccountsFile1,temp,'\n')){
+
+                    string::size_type pos=temp.find(search);
+
+                    if(pos!=string::npos){
+                        line=temp;
+                        accountFound=true;
+                        break;
+                    }
                 }
-            }while(search.empty());
 
-            ifstream iAccountsFile1;
-            iAccountsFile1.open(ACCOUNT_FILE);
-
-            // search the line upto specific line
-            while(getline(iAccountsFile1,temp,'\n')){
-
-                string::size_type pos=temp.find(search);
-
-                if(pos!=string::npos){
-                    line=temp;
-                    break;
+                if(accountFound==false){
+                    cout << "Wrong account number" <<endl;
                 }
-            }
 
-            iAccountsFile1.close();
+                iAccountsFile1.close();
+            }while(accountFound==false);
 
             // make 'line' as a stream
             stringstream accountDetailsStream(line);
@@ -738,47 +767,54 @@ class Account{
 class SavingsAccount : public Account{
    
     public:
-        void virtual deposite(){
+        void virtual deposite() override{
             float ammount;
             string accountDetails[8];
             string line;
             string search;
             string temp;
 
+            bool accountFound=false;
             do{
-                cout << "Enter Account Number :";
-                cin >> search;
-                cin.clear();
-                cin.ignore();
+                 do{
+                    cout << "Enter Account Number :";
+                    cin >> search;
+                    cin.clear();
+                    cin.ignore();
 
-                bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
+                    bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
 
-                if(contains_non_integer){
-                    cout << "Please enter digis only" << endl;
-                    search.erase();
-                }else if(search.length()<5){
-                    cout << "Account number need to be 5 digits long" << endl;
-                    search.erase();
-                    system("pause");
+                    if(contains_non_integer){
+                        cout << "Please enter digis only" << endl;
+                        search.erase();
+                    }else if(search.length()<5){
+                        cout << "Account number need to be 5 digits long" << endl;
+                        search.erase();
+                        system("pause");
+                    }
+                 }while(search.empty());
+           
+
+                ifstream iAccountsFile1;
+                iAccountsFile1.open(ACCOUNT_FILE);
+
+                // search the line upto specific line
+                while(getline(iAccountsFile1,temp,'\n')){
+
+                    string::size_type pos=temp.find(search);
+
+                    if(pos!=string::npos){
+                        line=temp;
+                        accountFound=true;
+                        break;
+                    }
                 }
-            }while(search.empty());
-
-            ifstream iAccountsFile1;
-            iAccountsFile1.open(ACCOUNT_FILE);
-
-            // search the line upto specific line
-            while(getline(iAccountsFile1,temp,'\n')){
-
-                string::size_type pos=temp.find(search);
-
-                if(pos!=string::npos){
-                    line=temp;
-                    break;
+                iAccountsFile1.close();
+                if(accountFound==false){
+                    cout << "Wrong account number" << endl;
                 }
-            }
-
-            iAccountsFile1.close();
-
+            }while(accountFound==false);
+             
             // make 'line' as a stream
             stringstream accountDetailsStream(line);
             int i=0;
@@ -856,39 +892,45 @@ class CheckingAccount : public Account{
             string search;
             string temp;
 
+            bool accountFound=false;
             do{
-                cout << "Enter Account Number :";
-                cin >> search;
-                cin.clear();
-                cin.ignore();
+                do{
+                    cout << "Enter Account Number :";
+                    cin >> search;
+                    cin.clear();
+                    cin.ignore();
 
-                bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
+                    bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
 
-                if(contains_non_integer){
-                    cout << "Please enter integers only" << endl;
-                    search.erase();
-                }else if(search.length()<5){
-                    cout << "Account number need to be 5 digits long" << endl;
-                    search.erase();
-                    system("pause");
+                    if(contains_non_integer){
+                        cout << "Please enter integers only" << endl;
+                        search.erase();
+                    }else if(search.length()<5){
+                        cout << "Account number need to be 5 digits long" << endl;
+                        search.erase();
+                        system("pause");
+                    }
+                }while(search.empty());
+
+                ifstream iAccountsFile1;
+                iAccountsFile1.open(ACCOUNT_FILE);
+
+                // search the line upto specific line
+                while(getline(iAccountsFile1,temp,'\n')){
+
+                    string::size_type pos=temp.find(search);
+
+                    if(pos!=string::npos){
+                        line=temp;
+                        accountFound=true;
+                        break;
+                    }
                 }
-            }while(search.empty());
-
-            ifstream iAccountsFile1;
-            iAccountsFile1.open(ACCOUNT_FILE);
-
-            // search the line upto specific line
-            while(getline(iAccountsFile1,temp,'\n')){
-
-                string::size_type pos=temp.find(search);
-
-                if(pos!=string::npos){
-                    line=temp;
-                    break;
+                iAccountsFile1.close();
+                if(accountFound==false){
+                    cout << "Wrong account number" << endl;
                 }
-            }
-
-            iAccountsFile1.close();
+            }while(accountFound==false);
 
             // make 'line' as a stream
             stringstream accountDetailsStream(line);
