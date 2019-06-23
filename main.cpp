@@ -600,8 +600,9 @@ class Account{
             }
 
             // get input from user
+            system("cls");
             do{
-                cout << "Enter Ammount ";
+                cout << "Enter Ammount :";
                 cin >> ammount;
                 cin.clear();
                 cin.ignore();
@@ -609,6 +610,9 @@ class Account{
                 if(ammount==NULL){
                     cout << "Please enter integers only" << endl;
                     ammount==NULL;
+                }else if(ammount<=0){
+                    cout << "Ammount cannot be minus(-) or 0" << endl;
+                    ammount=NULL;
                 }
             }while(ammount==NULL);
 
@@ -851,6 +855,9 @@ class SavingsAccount : public Account{
 
                 if(ammount==NULL){
                     cout << "Please enter integers only" << endl;
+                    ammount=NULL;
+                }else if(ammount<=0){
+                    cout << "Ammount cannot be minus(-) or 0" << endl;
                     ammount=NULL;
                 }
             }while(ammount==NULL);
