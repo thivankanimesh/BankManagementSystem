@@ -524,110 +524,7 @@ class Account{
             system("cls");
         }
 
-        void virtual deposite(){
-
-            float ammount;
-            string accountDetails[8];
-            string line;
-            string search;
-            string temp;
-
-            do{
-                cout << "Enter Account Number :";
-                cin >> search;
-                cin.clear();
-                cin.ignore();
-
-                bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
-
-                if(contains_non_integer){
-                    cout << "Please enter digis only" << endl;
-                    search.erase();
-                }else if(search.length()<5){
-                    cout << "Account number need to be 5 digits long" << endl;
-                    search.erase();
-                    system("pause");
-                }
-            }while(search.empty());
-
-            ifstream iAccountsFile1;
-            iAccountsFile1.open(ACCOUNT_FILE);
-
-            // search the line upto specific line
-            while(getline(iAccountsFile1,temp,'\n')){
-
-                string::size_type pos=temp.find(search);
-
-                if(pos!=string::npos){
-                    line=temp;
-                    break;
-                }
-            }
-
-            iAccountsFile1.close();
-
-            // make 'line' as a stream
-            stringstream accountDetailsStream(line);
-            int i=0;
-            while(getline(accountDetailsStream,accountDetails[i],',')){
-                i++;
-            }
-
-            // Create a new file and write lines without that specific line
-            ofstream newFile;
-            ifstream iAccountsFile2;
-            iAccountsFile2.open(ACCOUNT_FILE);
-            newFile.open(TEMP_ACCOUNT_FILE,ios::app);
-
-            while (getline(iAccountsFile2,temp,'\n'))
-            {
-                if(temp!=line){
-                     newFile<<temp<<endl;
-                }
-            }
-
-            iAccountsFile2.close();
-            newFile.close();
-
-            // get input from user
-            do{
-                cout << "Enter ammount :";
-                cin >> ammount;
-                cin.clear();
-                cin.ignore();
-
-                if(ammount==NULL){
-                    cout << "Please enter integers only" << endl;
-                    ammount=NULL;
-                }
-            }while(ammount==NULL);
-
-            // modify the array index [6]
-            accountDetails[6] = to_string(std::stof(accountDetails[6])+ammount);
-
-            //modified line
-            line = accountDetails[0]+","+accountDetails[1]+","+accountDetails[2]+","+accountDetails[3]+","+accountDetails[4]+","+accountDetails[5]+","+accountDetails[6]+","+accountDetails[7];
-
-            // append new line to the file
-            ofstream oAccountFile;
-            oAccountFile.open(TEMP_ACCOUNT_FILE,ios::app);
-            oAccountFile << line << endl;
-            oAccountFile.close();
-
-            // remove existing file
-            remove(ACCOUNT_FILE);
-
-            // rename file
-            rename(TEMP_ACCOUNT_FILE,ACCOUNT_FILE);
-
-            // Success message
-            system("cls");
-            cout << "Your deposite successful" << endl;
-
-            // press button to continue
-            system("pause");
-            system("cls");
-        }
+        void virtual deposite()=0;
         void withdraw(){
 
             float ammount;
@@ -839,7 +736,111 @@ class Account{
 };
 
 class SavingsAccount : public Account{
+   
+    public:
+        void virtual deposite(){
+            float ammount;
+            string accountDetails[8];
+            string line;
+            string search;
+            string temp;
 
+            do{
+                cout << "Enter Account Number :";
+                cin >> search;
+                cin.clear();
+                cin.ignore();
+
+                bool contains_non_integer = search.find_first_not_of("1234567890") != std::string::npos;
+
+                if(contains_non_integer){
+                    cout << "Please enter digis only" << endl;
+                    search.erase();
+                }else if(search.length()<5){
+                    cout << "Account number need to be 5 digits long" << endl;
+                    search.erase();
+                    system("pause");
+                }
+            }while(search.empty());
+
+            ifstream iAccountsFile1;
+            iAccountsFile1.open(ACCOUNT_FILE);
+
+            // search the line upto specific line
+            while(getline(iAccountsFile1,temp,'\n')){
+
+                string::size_type pos=temp.find(search);
+
+                if(pos!=string::npos){
+                    line=temp;
+                    break;
+                }
+            }
+
+            iAccountsFile1.close();
+
+            // make 'line' as a stream
+            stringstream accountDetailsStream(line);
+            int i=0;
+            while(getline(accountDetailsStream,accountDetails[i],',')){
+                i++;
+            }
+
+            // Create a new file and write lines without that specific line
+            ofstream newFile;
+            ifstream iAccountsFile2;
+            iAccountsFile2.open(ACCOUNT_FILE);
+            newFile.open(TEMP_ACCOUNT_FILE,ios::app);
+
+            while (getline(iAccountsFile2,temp,'\n'))
+            {
+                if(temp!=line){
+                     newFile<<temp<<endl;
+                }
+            }
+
+            iAccountsFile2.close();
+            newFile.close();
+
+            // get input from user
+            do{
+                cout << "Enter ammount :";
+                cin >> ammount;
+                cin.clear();
+                cin.ignore();
+
+                if(ammount==NULL){
+                    cout << "Please enter integers only" << endl;
+                    ammount=NULL;
+                }
+            }while(ammount==NULL);
+
+            // modify the array index [6]
+            accountDetails[6] = to_string(std::stof(accountDetails[6])+ammount);
+
+            //modified line
+            line = accountDetails[0]+","+accountDetails[1]+","+accountDetails[2]+","+accountDetails[3]+","+accountDetails[4]+","+accountDetails[5]+","+accountDetails[6]+","+accountDetails[7];
+
+            // append new line to the file
+            ofstream oAccountFile;
+            oAccountFile.open(TEMP_ACCOUNT_FILE,ios::app);
+            oAccountFile << line << endl;
+            oAccountFile.close();
+
+            // remove existing file
+            remove(ACCOUNT_FILE);
+
+            // rename file
+            rename(TEMP_ACCOUNT_FILE,ACCOUNT_FILE);
+
+            // Success message
+            system("cls");
+            cout << "Your deposite successful" << endl;
+
+            // press button to continue
+            system("pause");
+            system("cls");
+        }
 };
 
 class CheckingAccount : public Account{
