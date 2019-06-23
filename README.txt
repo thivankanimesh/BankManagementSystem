@@ -10,4 +10,4 @@ HOW TO CONFIGURE CODEBLOCKS
 
 3) Need to choose "Have g++ follow the C++14ISO C++ language standard [-std=c++14]" under compiler flags
 
-4) OK
+4) Click OK
