@@ -55,7 +55,7 @@ class Account{
 
     protected :
         int accountNo;
-        float balance=0;
+        float balance;
         string createdDate;
         const char* ACCOUNT_FILE = "accounts.csv";
         const char* TEMP_ACCOUNT_FILE = "temp_accounts.csv";
